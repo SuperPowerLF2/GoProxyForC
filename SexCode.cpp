@@ -1,4 +1,4 @@
-// Win32Project1.cpp : ¶¨Òå¿ØÖÆÌ¨Ó¦ÓÃ³ÌĞòµÄÈë¿Úµã¡£
+// Win32Project1.cpp : å®šä¹‰æ§åˆ¶å°åº”ç”¨ç¨‹åºçš„å…¥å£ç‚¹ã€‚
 //
 
 #include "stdafx.h"
@@ -10,47 +10,47 @@ typedef int(*IsRunningfuncPtrAdd)(char* p0);
 
 int _tmain(int argc, _TCHAR* argv[])
 {
-	// ¼ÓÔØÄ£¿é
+	// åŠ è½½æ¨¡å—
 	HMODULE hModuleHandle = LoadLibraryA("proxy-sdk.dll");
 	if (NULL == hModuleHandle || INVALID_HANDLE_VALUE == hModuleHandle)
 	{
-		// ÕÒ²»µ½dll
+		// æ‰¾ä¸åˆ°dll
 		return -1;
 
 	}
-	// »ñÈ¡Ä£¿éº¯ÊıµØÖ·
+	// è·å–æ¨¡å—å‡½æ•°åœ°å€
 	StartfuncPtrAdd pFuncStart = (StartfuncPtrAdd)GetProcAddress(hModuleHandle, "Start");
 	StopfuncPtrAdd pFuncStop = (StopfuncPtrAdd)GetProcAddress(hModuleHandle, "Stop");
 	IsRunningfuncPtrAdd pFuncIsRunning = (IsRunningfuncPtrAdd)GetProcAddress(hModuleHandle, "IsRunning");
-	// ¼ì²éº¯ÊıÊÇ·ñ»ñÈ¡³É¹¦
+	// æ£€æŸ¥å‡½æ•°æ˜¯å¦è·å–æˆåŠŸ
 	if (pFuncStart == NULL)
 	{
-		printf("Start º¯ÊıµØÖ·»ñÈ¡Ê§°Ü");
+		printf("Start å‡½æ•°åœ°å€è·å–å¤±è´¥");
 		return -1;
 	}
 	if (pFuncStop == NULL)
 	{
-		printf("Stop º¯ÊıµØÖ·»ñÈ¡Ê§°Ü");
+		printf("Stop å‡½æ•°åœ°å€è·å–å¤±è´¥");
 		return -1;
 	}
 	if (pFuncIsRunning == NULL)
 	{
-		printf("IsRunning º¯ÊıµØÖ·»ñÈ¡Ê§°Ü");
+		printf("IsRunning å‡½æ•°åœ°å€è·å–å¤±è´¥");
 		return -1;
 	}
 	
 	char* pSexVar = "http -p :7771";
 	//GoString sGoStr = { pSexVar, strlen(pSexVar) };
 
-	// Æô¶¯·şÎñ ·µ»Ø¿Õ×Ö·û´®ËµÃ÷Æô¶¯³É¹¦;·µ»Ø·Ç¿Õ×Ö·û´®ËµÃ÷Æô¶¯Ê§°Ü,·µ»ØµÄ×Ö·û´®ÊÇ´íÎóÔ­Òò
+	// å¯åŠ¨æœåŠ¡ è¿”å›ç©ºå­—ç¬¦ä¸²è¯´æ˜å¯åŠ¨æˆåŠŸ;è¿”å›éç©ºå­—ç¬¦ä¸²è¯´æ˜å¯åŠ¨å¤±è´¥,è¿”å›çš„å­—ç¬¦ä¸²æ˜¯é”™è¯¯åŸå› 
 	char* pRetMessage = pFuncStart(pSexVar);
 	printf("%s\r\n", pRetMessage);
 
-	// ¹Ø±Õ·şÎñ Ã»ÓĞ·µ»ØÖµ
+	// å…³é—­æœåŠ¡ æ²¡æœ‰è¿”å›å€¼
 	pFuncStop(pSexVar);
 	printf("have already stopped\r\n");
 
-	// ¼ì²é·şÎñÊÇ·ñÔÚÔËĞĞ 0Ã»ÓĞ 1ÔÚÔËĞĞ
+	// æ£€æŸ¥æœåŠ¡æ˜¯å¦åœ¨è¿è¡Œ 0æ²¡æœ‰ 1åœ¨è¿è¡Œ
 	int iRet = pFuncIsRunning(pSexVar);
 	printf("current status %d\r\n", iRet);
 	getchar();
